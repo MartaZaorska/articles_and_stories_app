@@ -1,6 +1,6 @@
 import Article from "./interfaces/Article";
 
-function getImageMostPopular(data: any[]): string {
+function getImageFromMostPopular(data: any[]): string {
   let imageURL: string = "";
   const mediaImage = data.find((item: any) => item.type === "image");
   if (mediaImage && mediaImage["media-metadata"].length > 0) {
@@ -11,7 +11,7 @@ function getImageMostPopular(data: any[]): string {
   return imageURL;
 }
 
-function getImageTopStories(data: any[]): string {
+function getImageFromTopStories(data: any[]): string {
   let imageURL = "";
   const images = data
     .filter((item: any) => item.type === "image")
@@ -34,7 +34,7 @@ async function fetchMostPopular(): Promise<Article[]> {
     published_date: new Date(item.published_date).getTime(),
     url: item.url,
     abstract: item.abstract,
-    image: getImageMostPopular(item.media),
+    image: getImageFromMostPopular(item.media),
   }));
 
   return results;
@@ -52,7 +52,7 @@ async function fetchTopStories(category: string): Promise<Article[]> {
     published_date: new Date(item.published_date).getTime(),
     url: item.url,
     abstract: item.abstract,
-    image: getImageTopStories(item.multimedia),
+    image: getImageFromTopStories(item.multimedia),
   }));
   return results;
 }

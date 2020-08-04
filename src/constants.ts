@@ -1,4 +1,5 @@
 export const CATEGORIES: string[] = [
+  "most-popular",
   "arts",
   "automobiles",
   "books",
