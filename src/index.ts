@@ -20,12 +20,10 @@ const observer: IntersectionObserver = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.5 }
+  { threshold: 0.25 }
 );
 
 async function init() {
-  const headerElement = document.querySelector(".header")!;
-  observer.observe(headerElement);
   UI.displaySpinner();
   const activeCategory: string = Store.getCategory();
   const data: Article[] = await getArticles(activeCategory);
@@ -56,6 +54,9 @@ categoriesElement.addEventListener("click", async (e: Event) => {
   if (element.classList.contains("navbar__item--active")) return;
   if (element.classList.contains("navbar__item")) {
     const prevNavbarItem = document.querySelector(".navbar__item--active")!;
+    prevNavbarItem.classList.remove("navbar__item--active");
+    element.classList.add("navbar__item--active");
+
     const category: string = `${element.getAttribute("data-name")}`;
     let data: Article[] = [];
     if (cache[category]) {
@@ -67,9 +68,7 @@ categoriesElement.addEventListener("click", async (e: Event) => {
     }
     UI.displayArticles(data, observer);
     Store.setCategory(category);
-    prevNavbarItem.classList.remove("navbar__item--active");
-    element.classList.add("navbar__item--active");
   }
 });
 
-init();
+document.addEventListener("DOMContentLoaded", init);

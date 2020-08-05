@@ -13,6 +13,7 @@ function getImageFromMostPopular(data: any[]): string {
 
 function getImageFromTopStories(data: any[]): string {
   let imageURL = "";
+  if (data === null) return imageURL;
   const images = data
     .filter((item: any) => item.type === "image")
     .sort((a: any, b: any) => b.width - a.width);

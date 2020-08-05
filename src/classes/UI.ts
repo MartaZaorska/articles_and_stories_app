@@ -24,7 +24,7 @@ class UI {
   static displaySpinner(): void {
     const articlesElement = document.getElementById("articles")!;
     articlesElement.innerHTML = `
-      <p class="spinner">Loading...</p>
+      <div class="spinner"><div class="spinner__item"></div></div>
     `;
   }
 
@@ -35,7 +35,8 @@ class UI {
     const articlesElement = document.getElementById("articles")!;
 
     if (data.length === 0) {
-      articlesElement.innerHTML = `<p class="articles--empty">Empty</p>`;
+      articlesElement.innerHTML = `<p class="articles--empty">No content</p>`;
+      return;
     }
 
     articlesElement.innerHTML = "";
@@ -62,7 +63,7 @@ class UI {
         item.title
       }</a></h2>
             </header>
-            <p class="articles__text">${item.abstract}</p>
+            <p class="articles__abstract">${item.abstract}</p>
             <p class="articles__author">${item.author}</p>
           </div>
       `;

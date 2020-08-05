@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap");
+
+$lg: "screen and (min-width: 992px)";
+$md: "screen and (min-width: 768px)";
 
 $lightGray: rgba(245, 245, 245, 0.85);
 $white: #fff;
@@ -18,16 +21,22 @@ $fontSerif: "Playfair Display", serif;
 
 ::-webkit-scrollbar {
   background: transparent;
-  width: 5px;
-}
-::-webkit-scrollbar-thumb {
-  box-shadow: inset 0 0 10px 10px rgba(110, 110, 110, 0.4);
-  border: solid 10px transparent;
-  border-radius: 1.3em;
-}
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 10px 10px transparent;
-  border: solid 10px transparent;
+  visibility: hidden;
+  width: 15px;
+  @media #{$lg} {
+    visibility: visible;
+  }
+
+  &-thumb {
+    box-shadow: inset 0 0 15px 15px rgba(110, 110, 110, 0.4);
+    border: solid 15px transparent;
+    border-radius: 1.3em;
+  }
+
+  &-track {
+    box-shadow: inset 0 0 15px 15px transparent;
+    border: solid 15px transparent;
+  }
 }
 
 body {
@@ -48,6 +57,7 @@ a {
   text-decoration: none;
   color: inherit;
   outline: none;
+  cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -59,8 +69,21 @@ a:focus {
   -webkit-tap-highlight-color: transparent;
 }
 
+img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+}
+
+.text--light {
+  font-weight: 300;
+}
+
 .container {
   position: relative;
+  width: 100%;
+  height: auto;
+  padding-bottom: 30px;
 }
 
 .scroll__button {
@@ -73,8 +96,9 @@ a:focus {
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 1em;
+  bottom: 2.6em;
   right: 1em;
+  cursor: pointer;
   transition: all 0.2s;
   transform: translateX(100px);
   i {
@@ -91,20 +115,256 @@ a:focus {
   }
 }
 
-.control {
+.header {
+  font-family: $fontSerif;
   width: 100%;
-  text-align: right;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   padding: 1em;
-}
+  position: relative;
 
-.contact__button {
-  i {
-    pointer-events: none;
-    font-size: 1.2em;
+  h1 {
+    text-align: right;
+    font-size: 2.5em;
+    letter-spacing: 1px;
+  }
+
+  .text--light {
+    font-size: 0.6em;
+  }
+
+  @media #{$lg} {
+    h1 {
+      font-size: 3.3em;
+    }
+    .text--light {
+      font-size: 0.5em;
+    }
   }
 }
 
-img {
-  max-width: 200px;
+.navbar {
+  width: 100vw;
   height: auto;
+  overflow-x: scroll;
+  margin-top: 0.3em;
+  margin-bottom: 0.6em;
+  min-height: 52px;
+  &__list {
+    width: auto;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  @media #{$lg} {
+    width: 15vw;
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: lighten($lightGray, 2);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    margin: 0;
+
+    &__list {
+      margin: 1em 0em;
+      width: 15vw;
+      height: auto;
+      flex-direction: column;
+    }
+  }
+}
+
+.navbar__item {
+  min-width: 110px;
+  padding: 0.6em;
+  text-align: center;
+  margin: 0em 0.6em;
+  border-radius: 0.6em;
+  background: $lightGray;
+  text-transform: capitalize;
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0;
+
+  &:first-child {
+    margin-left: 1em;
+  }
+
+  @media #{$lg} {
+    width: 100%;
+    margin: 0.6em 0em;
+    background: transparent;
+    font-weight: 300;
+    color: $lightBlack;
+    font-size: 0.95em;
+    &:first-child {
+      margin-left: 0em;
+    }
+  }
+
+  &--active,
+  &:hover {
+    background: $lightBlack;
+    font-weight: 700;
+    color: $white;
+    box-shadow: 0px 0px 12px -2px rgba(0, 0, 0, 0.2);
+    @media #{$lg} {
+      background: transparent;
+      box-shadow: none;
+      color: $black;
+    }
+  }
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+.main {
+  width: 100%;
+  overflow-x: hidden;
+
+  @media #{$md} {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  @media #{$lg} {
+    width: 85vw;
+    margin-left: 15vw;
+  }
+}
+
+.articles__item {
+  width: 100%;
+  height: auto;
+  padding-bottom: 2em;
+  transition: all 0.5s;
+  transform: translate(35px, -15px);
+  opacity: 0;
+
+  @media #{$md} {
+    width: 46%;
+    margin: 2%;
+  }
+
+  @media #{$lg} {
+    width: 29%;
+  }
+
+  &--noimage {
+    background: $lightGray;
+  }
+
+  &.active {
+    transform: translate(0px, 0px);
+    opacity: 1;
+  }
+}
+
+.articles {
+  &__image {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__content {
+    padding: 1em 0.8em 0em 0.8em;
+  }
+
+  &__text {
+    font-weight: 300;
+    color: lighten($lightBlack, 5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__title {
+    margin: 0.5em 0em;
+    font-family: $fontSerif;
+  }
+
+  &__abstract {
+    line-height: 1.7;
+  }
+
+  &__author {
+    font-weight: 300;
+    color: lighten($lightBlack, 5);
+    margin: 0.5em 0em;
+    line-height: 1.5;
+  }
+
+  &--empty {
+    padding: 2em;
+    font-size: 2em;
+    font-weight: 300;
+    color: lighten($lightBlack, 5);
+    font-family: $fontSerif;
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0em;
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  &__text {
+    padding: 0.4em 0.7em;
+    a {
+      color: $black;
+      font-weight: 700;
+    }
+  }
+
+  @media #{$lg} {
+    width: 85vw;
+    left: 15vw;
+    justify-content: center;
+  }
+}
+
+.spinner {
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__item {
+    width: 60px;
+    height: 60px;
+    border-top: 1px solid $lightBlack;
+    border-radius: 50%;
+    animation: rotateCircle 0.6s infinite linear;
+    -webkit-animation: rotateCircle 0.6s infinite linear;
+  }
+}
+
+@keyframes rotateCircle {
+  0% {
+    transform: rotate(0deg);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    transform: rotate(360deg);
+    box-shadow: none;
+  }
 }
