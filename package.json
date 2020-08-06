@@ -1,7 +1,7 @@
 {
   "name": "articles_and_stories_app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Most popular articles and top stories for many categories",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server",

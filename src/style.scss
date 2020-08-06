@@ -48,6 +48,7 @@ body {
   overflow-x: hidden;
   position: relative;
   color: $lightBlack;
+  background: $white;
 }
 
 button,
@@ -91,7 +92,6 @@ img {
   height: 50px;
   border-radius: 50%;
   background: $lightBlack;
-  color: $lightGray;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -101,17 +101,43 @@ img {
   cursor: pointer;
   transition: all 0.2s;
   transform: translateX(100px);
-  i {
-    pointer-events: none;
-    font-size: 1.3em;
-  }
   &:hover {
     background: $black;
-    color: $white;
     box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.2);
+    .stripe {
+      background: $white;
+    }
   }
   &--active {
     transform: translateX(0px);
+  }
+}
+
+.scroll__icon {
+  pointer-events: none;
+  position: relative;
+  width: 22px;
+  height: 22px;
+  display: block;
+
+  .stripe {
+    display: block;
+    width: 2px;
+    height: 13px;
+    background: $lightGray;
+    position: absolute;
+    top: 3px;
+    border-radius: 1px;
+  }
+
+  .stripe:first-child {
+    left: 6px;
+    transform: rotate(42deg);
+  }
+
+  .stripe:last-child {
+    right: 6px;
+    transform: rotate(-42deg);
   }
 }
 
